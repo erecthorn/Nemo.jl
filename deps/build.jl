@@ -65,9 +65,9 @@ if Sys.iswindows()
    end
 
    try
-     run(`ln -sf $prefixpath\\lib\\libflint.dll $prefix\\lib\\libflint-13.dll`)
+     run(`ln -sf $prefixpath\\lib\\libflint.dll $prefixpath\\lib\\libflint-13.dll`)
    catch
-     cp(joinpath(prefixpath, "lib", "libflint.dll"), joinpath(prefix, "lib", "libflint-13.dll"), force = true)
+     cp(joinpath(prefixpath, "lib", "libflint.dll"), joinpath(prefixpath, "lib", "libflint-13.dll"), force = true)
    end
 
    if Int == Int32
