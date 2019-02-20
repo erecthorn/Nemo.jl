@@ -62,6 +62,12 @@ if Sys.iswindows()
       download("http://nemocas.org/binaries/w64-libflint.dll.$FLINT_VERSION", joinpath(prefix, "lib", "libflint.dll"))
    end
 
+   try
+     run(`ln -sf $prefix\\lib\\libflint.dll $prefix\\lib\\libflint-13.dll`)
+   catch
+     cp(joinpath(prefix, "lib", "libflint.dll"), joinpath(prefix, "lib", "libflint-13.dll"), force = true)
+   end
+
    if Int == Int32
       download("http://nemocas.org/binaries/w32-libarb.dll", joinpath(prefix, "lib", "libarb.dll"))
    else
@@ -75,3 +81,5 @@ if Sys.iswindows()
       download("http://nemocas.org/binaries/w64-libantic.dll.$ANTIC_VERSION", joinpath(prefix, "lib", "libantic.dll"))
    end
 end
+
+push!(Libdl.DL_LOAD_PATH, joinpath(prefix, "lib"))
