@@ -91,11 +91,11 @@ iswindows64() = (Sys.iswindows() ? true : false) && (Int == Int64)
 const pkgdir = realpath(joinpath(dirname(@__DIR__)))
 const libdir = joinpath(pkgdir, "deps", "usr", "lib")
 if Sys.iswindows()
-   const libgmp = joinpath(pkgdir, "deps", "usr", "lib", "libgmp-16.so")
+   const libgmp = joinpath(pkgdir, "deps", "usr", "lib", "libgmp-16")
 else
-   const libgmp = joinpath(pkgdir, "deps", "usr", "lib", "libgmp.so")
+   const libgmp = joinpath(pkgdir, "deps", "usr", "lib", "libgmp")
 end
-const libmpfr = joinpath(pkgdir, "deps", "usr", "lib", "libmpfr.so")
+const libmpfr = joinpath(pkgdir, "deps", "usr", "lib", "libmpfr")
 const libflint = joinpath(pkgdir, "deps", "usr", "lib", "libflint")
 const libarb = joinpath(pkgdir, "deps", "usr", "lib", "libarb")
 const libantic = joinpath(pkgdir, "deps", "usr", "lib", "libantic")
@@ -104,7 +104,7 @@ function flint_abort()
   error("Problem in the Flint-Subsystem")
 end
 
-active_mem=Dict{UInt, Tuple{Symbol, UInt, Any}}()
+active_mem = Dict{UInt, Tuple{Symbol, UInt, Any}}()
 
 function trace_malloc(n::UInt)
   u = ccall(:jl_malloc, UInt, (UInt, ), n)
@@ -205,7 +205,6 @@ function trace_memory(b::Bool)
 end
 
 function __init__()
-	 #check_deps()
    if "HOSTNAME" in keys(ENV) && ENV["HOSTNAME"] == "juliabox"
        push!(Libdl.DL_LOAD_PATH, "/usr/local/lib")
    elseif Sys.islinux()
