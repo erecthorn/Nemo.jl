@@ -1,9 +1,9 @@
-#using Libdl
+using Libdl
 
 using BinaryProvider # requires BinaryProvider 0.3.0 or later
 
 # Parse some basic command-line arguments
-const verbose = true#"--verbose" in ARGS
+const verbose = "--verbose" in ARGS
 
 # Dependencies that must be installed before this package can be built
 if !Sys.iswindows()
@@ -22,6 +22,8 @@ else
 end
 
 const prefix = Prefix(get([a for a in ARGS if a != "--verbose"], 1, joinpath(@__DIR__, "usr")))
+
+const prefixpath = joinpath(@__DIR__, "usr")
 
 products = []
 
@@ -49,37 +51,37 @@ if Sys.iswindows()
 	## download libpthreads
 	println("Downloading libpthread ... ")
 	if Int == Int32
-		download("http://nemocas.org/binaries/w32-libwinpthread-1.dll", joinpath(prefix, "lib", "libwinpthread-1.dll"))
+		download("http://nemocas.org/binaries/w32-libwinpthread-1.dll", joinpath(prefixpath, "lib", "libwinpthread-1.dll"))
 	else
-		download("http://nemocas.org/binaries/w64-libwinpthread-1.dll", joinpath(prefix, "lib", "libwinpthread-1.dll"))
+		download("http://nemocas.org/binaries/w64-libwinpthread-1.dll", joinpath(prefixpath, "lib", "libwinpthread-1.dll"))
 	end
   println("DONE")
 
    println("Downloading flint ... ")
    if Int == Int32
-      download("http://nemocas.org/binaries/w32-libflint.dll", joinpath(prefix, "lib", "libflint.dll"))
+      download("http://nemocas.org/binaries/w32-libflint.dll", joinpath(prefixpath, "lib", "libflint.dll"))
    else
-      download("http://nemocas.org/binaries/w64-libflint.dll.$FLINT_VERSION", joinpath(prefix, "lib", "libflint.dll"))
+      download("http://nemocas.org/binaries/w64-libflint.dll.$FLINT_VERSION", joinpath(prefixpath, "lib", "libflint.dll"))
    end
 
    try
-     run(`ln -sf $prefix\\lib\\libflint.dll $prefix\\lib\\libflint-13.dll`)
+     run(`ln -sf $prefixpath\\lib\\libflint.dll $prefix\\lib\\libflint-13.dll`)
    catch
-     cp(joinpath(prefix, "lib", "libflint.dll"), joinpath(prefix, "lib", "libflint-13.dll"), force = true)
+     cp(joinpath(prefixpath, "lib", "libflint.dll"), joinpath(prefix, "lib", "libflint-13.dll"), force = true)
    end
 
    if Int == Int32
-      download("http://nemocas.org/binaries/w32-libarb.dll", joinpath(prefix, "lib", "libarb.dll"))
+      download("http://nemocas.org/binaries/w32-libarb.dll", joinpath(prefixpath, "lib", "libarb.dll"))
    else
-      download("http://nemocas.org/binaries/w64-libarb.dll.$ARB_VERSION", joinpath(prefix, "lib", "libarb.dll"))
+      download("http://nemocas.org/binaries/w64-libarb.dll.$ARB_VERSION", joinpath(prefixpath, "lib", "libarb.dll"))
    end
    println("DONE")
 
    if Int == Int32
-      download("http://nemocas.org/binaries/w32-libantic.dll", joinpath(prefix, "lib", "libantic.dll"))
+      download("http://nemocas.org/binaries/w32-libantic.dll", joinpath(prefixpath, "lib", "libantic.dll"))
    else
-      download("http://nemocas.org/binaries/w64-libantic.dll.$ANTIC_VERSION", joinpath(prefix, "lib", "libantic.dll"))
+      download("http://nemocas.org/binaries/w64-libantic.dll.$ANTIC_VERSION", joinpath(prefixpath, "lib", "libantic.dll"))
    end
 end
 
-push!(Libdl.DL_LOAD_PATH, joinpath(prefix, "lib"))
+push!(Libdl.DL_LOAD_PATH, joinpath(prefixpath, "lib"))
