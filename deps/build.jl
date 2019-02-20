@@ -49,29 +49,29 @@ if Sys.iswindows()
 	## download libpthreads
 	println("Downloading libpthread ... ")
 	if Int == Int32
-		download_dll("http://nemocas.org/binaries/w32-libwinpthread-1.dll", joinpath(prefix, "lib", "libwinpthread-1.dll"))
+		download("http://nemocas.org/binaries/w32-libwinpthread-1.dll", joinpath(prefix, "lib", "libwinpthread-1.dll"))
 	else
-		download_dll("http://nemocas.org/binaries/w64-libwinpthread-1.dll", joinpath(prefix, "lib", "libwinpthread-1.dll"))
+		download("http://nemocas.org/binaries/w64-libwinpthread-1.dll", joinpath(prefix, "lib", "libwinpthread-1.dll"))
 	end
   println("DONE")
 
    println("Downloading flint ... ")
    if Int == Int32
-      download_dll("http://nemocas.org/binaries/w32-libflint.dll", joinpath(prefix, "lib", "libflint.dll"))
+      download("http://nemocas.org/binaries/w32-libflint.dll", joinpath(prefix, "lib", "libflint.dll"))
    else
-      download_dll("http://nemocas.org/binaries/w64-libflint.dll.$FLINT_VERSION", joinpath(prefix, "lib", "libflint.dll"))
+      download("http://nemocas.org/binaries/w64-libflint.dll.$FLINT_VERSION", joinpath(prefix, "lib", "libflint.dll"))
    end
 
    if Int == Int32
-      download_dll("http://nemocas.org/binaries/w32-libarb.dll", joinpath(prefix, "lib", "libarb.dll"))
+      download("http://nemocas.org/binaries/w32-libarb.dll", joinpath(prefix, "lib", "libarb.dll"))
    else
-      download_dll("http://nemocas.org/binaries/w64-libarb.dll.$ARB_VERSION", joinpath(prefix, "lib", "libarb.dll"))
+      download("http://nemocas.org/binaries/w64-libarb.dll.$ARB_VERSION", joinpath(prefix, "lib", "libarb.dll"))
    end
    println("DONE")
 
    if Int == Int32
-      download_dll("http://nemocas.org/binaries/w32-libantic.dll", joinpath(prefix, "lib", "libantic.dll"))
+      download("http://nemocas.org/binaries/w32-libantic.dll", joinpath(prefix, "lib", "libantic.dll"))
    else
-      download_dll("http://nemocas.org/binaries/w64-libantic.dll.$ANTIC_VERSION", joinpath(prefix, "lib", "libantic.dll"))
+      download("http://nemocas.org/binaries/w64-libantic.dll.$ANTIC_VERSION", joinpath(prefix, "lib", "libantic.dll"))
    end
 end
