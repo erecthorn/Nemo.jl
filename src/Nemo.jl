@@ -80,6 +80,10 @@ if VERSION >= v"0.7.0-DEV.1144"
     import Base: isone
 end
 
+function neuefunktion()
+asdas
+end
+
 ###############################################################################
 #
 #   Set up environment / load libraries
